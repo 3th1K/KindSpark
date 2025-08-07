@@ -106,4 +106,12 @@ class SettingsViewModel(
             preferencesManager.updateLottieAnimations(enabled)
         }
     }
+
+    fun resetToDefaults() {
+        viewModelScope.launch {
+            preferencesManager.resetToDefaults()
+            // Reschedule notifications with default settings
+            notificationScheduler.scheduleNotifications()
+        }
+    }
 }

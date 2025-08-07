@@ -1,13 +1,15 @@
 package com.example.kindspark.ui.settings
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -15,6 +17,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.kindspark.data.preferences.UserPreferencesManager
+import com.example.kindspark.ui.components.*
+import com.example.kindspark.ui.icons.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -24,23 +28,28 @@ fun SettingsScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var showIntervalDialog by remember { mutableStateOf(false) }
-    var showThemeDialog by remember { mutableStateOf(false) }
+    var showResetDialog by remember { mutableStateOf(false) }
+
+    // State for expandable sections
+    var themeExpanded by rememberSaveable { mutableStateOf(true) }
+    var notificationsExpanded by rememberSaveable { mutableStateOf(true) }
+    var aboutExpanded by rememberSaveable { mutableStateOf(false) }
 
     Column(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        // Header
+        // Modern Header
         Text(
             text = "Settings",
-            style = MaterialTheme.typography.headlineMedium,
+            style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(24.dp)
         )
 
         if (uiState.isLoading) {
@@ -51,265 +60,224 @@ fun SettingsScreen(
                 CircularProgressIndicator()
             }
         } else {
-            // Settings List
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
+            // Theme Section
+            ModernSettingSection(
+                title = "Theme",
+                isExpanded = themeExpanded,
+                onToggleExpanded = { themeExpanded = !themeExpanded }
             ) {
-                Column {
-                    // Notifications Section
-                    SettingSectionHeader(title = "Notifications")
+                ModernSettingItem(
+                    icon = Icons.Outlined.CustomPalette,
+                    title = "App Theme",
+                    subtitle = "Choose your preferred visual style"
+                )
 
-                    SettingItem(
-                        icon = Icons.Default.Notifications,
-                        title = "Daily Reminders",
-                        subtitle = "Get reminded to perform daily acts of kindness",
-                        trailing = {
-                            Switch(
-                                checked = uiState.notificationEnabled,
-                                onCheckedChange = { viewModel.updateNotificationEnabled(it) }
-                            )
-                        }
-                    )
-
-                    if (uiState.notificationEnabled) {
-                        SettingItem(
-                            icon = Icons.Default.DateRange,
-                            title = "Notification Frequency",
-                            subtitle = uiState.notificationInterval.displayName,
-                            onClick = { showIntervalDialog = true }
-                        )
-
-                        SettingItem(
-                            icon = Icons.Default.Notifications,
-                            title = "Notification Sound",
-                            subtitle = "Play sound with notifications",
-                            trailing = {
-                                Switch(
-                                    checked = uiState.notificationSound,
-                                    onCheckedChange = { viewModel.updateNotificationSound(it) }
-                                )
-                            }
+                // Dynamic Theme Previews
+                LazyRow(
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(UserPreferencesManager.AppTheme.values()) { theme ->
+                        ThemePreviewCard(
+                            theme = theme,
+                            isSelected = theme == uiState.selectedTheme,
+                            onClick = { viewModel.updateSelectedTheme(theme) }
                         )
                     }
+                }
 
-                    HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-                    // Appearance Section
-                    SettingSectionHeader(title = "Appearance")
+                ModernSettingItem(
+                    icon = Icons.Outlined.CustomLandscape,
+                    title = "Calming Backgrounds",
+                    subtitle = "Use gentle gradient backgrounds",
+                    trailing = {
+                        ModernSwitch(
+                            checked = uiState.calmingBackground,
+                            onCheckedChange = { viewModel.updateCalmingBackground(it) }
+                        )
+                    }
+                )
 
-                    SettingItem(
-                        icon = Icons.Default.Settings,
-                        title = "App Theme",
-                        subtitle = uiState.selectedTheme.displayName,
-                        onClick = { showThemeDialog = true }
+                ModernSettingItem(
+                    icon = Icons.Outlined.CustomAutoAwesome,
+                    title = "Celebration Animations",
+                    subtitle = "Show animations when completing tasks",
+                    trailing = {
+                        ModernSwitch(
+                            checked = uiState.lottieAnimations,
+                            onCheckedChange = { viewModel.updateLottieAnimations(it) }
+                        )
+                    }
+                )
+            }
+
+            // Notifications Section
+            ModernSettingSection(
+                title = "Notifications",
+                isExpanded = notificationsExpanded,
+                onToggleExpanded = { notificationsExpanded = !notificationsExpanded }
+            ) {
+                ModernSettingItem(
+                    icon = Icons.Outlined.AnimatedBell,
+                    title = "Daily Reminders",
+                    subtitle = "Get reminded to perform daily acts of kindness",
+                    trailing = {
+                        ModernSwitch(
+                            checked = uiState.notificationEnabled,
+                            onCheckedChange = { viewModel.updateNotificationEnabled(it) }
+                        )
+                    }
+                )
+
+                if (uiState.notificationEnabled) {
+                    ModernSettingItem(
+                        icon = Icons.Outlined.CustomSchedule,
+                        title = "Notification Frequency",
+                        subtitle = uiState.notificationInterval.displayName,
+                        onClick = { showIntervalDialog = true }
                     )
 
-                    SettingItem(
-                        icon = Icons.Default.Star,
-                        title = "Calming Backgrounds",
-                        subtitle = "Use gentle gradient backgrounds",
+                    ModernSettingItem(
+                        icon = Icons.Outlined.CustomVolumeUp,
+                        title = "Notification Sound",
+                        subtitle = "Play sound with notifications",
                         trailing = {
-                            Switch(
-                                checked = uiState.calmingBackground,
-                                onCheckedChange = { viewModel.updateCalmingBackground(it) }
+                            ModernSwitch(
+                                checked = uiState.notificationSound,
+                                onCheckedChange = { viewModel.updateNotificationSound(it) }
                             )
                         }
-                    )
-
-                    HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
-
-                    // Experience Section
-                    SettingSectionHeader(title = "Experience")
-
-                    SettingItem(
-                        icon = Icons.Default.Star,
-                        title = "Celebration Animations",
-                        subtitle = "Show animations when completing tasks",
-                        trailing = {
-                            Switch(
-                                checked = uiState.lottieAnimations,
-                                onCheckedChange = { viewModel.updateLottieAnimations(it) }
-                            )
-                        }
-                    )
-
-                    HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
-
-                    // About Section
-                    SettingSectionHeader(title = "About")
-
-                    SettingItem(
-                        icon = Icons.Default.Info,
-                        title = "Version",
-                        subtitle = "2.0.0 - Enhanced with Phase 1 & 2 Features"
-                    )
-
-                    SettingItem(
-                        icon = Icons.Default.Favorite,
-                        title = "Made with ❤️",
-                        subtitle = "Spreading kindness one act at a time"
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            // About Section
+            ModernSettingSection(
+                title = "About",
+                isExpanded = aboutExpanded,
+                onToggleExpanded = { aboutExpanded = !aboutExpanded }
+            ) {
+                ModernSettingItem(
+                    icon = Icons.Default.Info,
+                    title = "Version",
+                    subtitle = "2.0.0 - Enhanced with Modern UX"
+                )
+
+                ModernSettingItem(
+                    icon = Icons.Outlined.SparklingHeart,
+                    title = "Made with ❤️",
+                    subtitle = "Crafted to spread kindness and positivity"
+                )
+
+                ModernSettingItem(
+                    icon = Icons.Outlined.AchievementStar,
+                    title = "Rate the App",
+                    subtitle = "Help us improve by sharing your feedback"
+                )
+            }
+
+            // Reset Button at Bottom
+            ResetSettingsButton(
+                onClick = { showResetDialog = true }
+            )
+
+            // Add bottom padding for better scrolling experience
+            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 
     // Notification Interval Dialog
     if (showIntervalDialog) {
-        NotificationIntervalDialog(
-            currentInterval = uiState.notificationInterval,
-            onIntervalSelected = { interval ->
-                viewModel.updateNotificationInterval(interval)
-                showIntervalDialog = false
+        AlertDialog(
+            onDismissRequest = { showIntervalDialog = false },
+            title = {
+                Text(
+                    text = "Notification Frequency",
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.SemiBold
+                )
             },
-            onDismiss = { showIntervalDialog = false }
+            text = {
+                Column {
+                    Text(
+                        text = "How often would you like to receive reminders?",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    UserPreferencesManager.NotificationInterval.values().forEach { interval ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            RadioButton(
+                                selected = interval == uiState.notificationInterval,
+                                onClick = {
+                                    viewModel.updateNotificationInterval(interval)
+                                    showIntervalDialog = false
+                                }
+                            )
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Text(
+                                text = interval.displayName,
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = { showIntervalDialog = false }
+                ) {
+                    Text("Done")
+                }
+            }
         )
     }
 
-    // Theme Selection Dialog
-    if (showThemeDialog) {
-        ThemeSelectionDialog(
-            currentTheme = uiState.selectedTheme,
-            onThemeSelected = { theme ->
-                viewModel.updateSelectedTheme(theme)
-                showThemeDialog = false
+    // Reset Settings Dialog
+    if (showResetDialog) {
+        AlertDialog(
+            onDismissRequest = { showResetDialog = false },
+            title = {
+                Text(
+                    text = "Reset Settings",
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.SemiBold
+                )
             },
-            onDismiss = { showThemeDialog = false }
+            text = {
+                Text(
+                    text = "Are you sure you want to reset all settings to their default values? This action cannot be undone.",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        viewModel.resetToDefaults()
+                        showResetDialog = false
+                    },
+                    colors = ButtonDefaults.textButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Text("Reset")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { showResetDialog = false }
+                ) {
+                    Text("Cancel")
+                }
+            }
         )
     }
-}
-
-@Composable
-private fun SettingSectionHeader(
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = title,
-        style = MaterialTheme.typography.titleSmall,
-        color = MaterialTheme.colorScheme.primary,
-        fontWeight = FontWeight.Bold,
-        modifier = modifier.padding(16.dp)
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun SettingItem(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
-    title: String,
-    subtitle: String,
-    modifier: Modifier = Modifier,
-    trailing: @Composable (() -> Unit)? = null,
-    onClick: (() -> Unit)? = null
-) {
-    val itemModifier = if (onClick != null) {
-        modifier.then(Modifier.clickable { onClick() })
-    } else {
-        modifier
-    }
-
-    ListItem(
-        headlineContent = { Text(title) },
-        supportingContent = { Text(subtitle, color = MaterialTheme.colorScheme.onSurfaceVariant) },
-        leadingContent = {
-            Icon(
-                icon,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary
-            )
-        },
-        trailingContent = trailing,
-        modifier = itemModifier
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun NotificationIntervalDialog(
-    currentInterval: UserPreferencesManager.NotificationInterval,
-    onIntervalSelected: (UserPreferencesManager.NotificationInterval) -> Unit,
-    onDismiss: () -> Unit
-) {
-    val intervals = UserPreferencesManager.NotificationInterval.values()
-
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = {
-            Text("Select Notification Frequency")
-        },
-        text = {
-            Column {
-                intervals.forEach { interval ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { onIntervalSelected(interval) }
-                            .padding(16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        RadioButton(
-                            selected = interval == currentInterval,
-                            onClick = { onIntervalSelected(interval) }
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(interval.displayName)
-                    }
-                }
-            }
-        },
-        confirmButton = {},
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Cancel")
-            }
-        }
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun ThemeSelectionDialog(
-    currentTheme: UserPreferencesManager.AppTheme,
-    onThemeSelected: (UserPreferencesManager.AppTheme) -> Unit,
-    onDismiss: () -> Unit
-) {
-    val themes = UserPreferencesManager.AppTheme.values()
-
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = {
-            Text("Select App Theme")
-        },
-        text = {
-            Column {
-                themes.forEach { theme ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { onThemeSelected(theme) }
-                            .padding(16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        RadioButton(
-                            selected = theme == currentTheme,
-                            onClick = { onThemeSelected(theme) }
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(theme.displayName)
-                    }
-                }
-            }
-        },
-        confirmButton = {},
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Cancel")
-            }
-        }
-    )
 }

@@ -106,4 +106,10 @@ class UserPreferencesManager(private val context: Context) {
             preferences[LOTTIE_ANIMATIONS_KEY] = enabled
         }
     }
+
+    suspend fun resetToDefaults() {
+        context.dataStore.edit { preferences ->
+            preferences.clear()
+        }
+    }
 }
