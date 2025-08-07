@@ -28,8 +28,10 @@ import com.example.kindspark.data.preferences.UserPreferencesManager
 import com.example.kindspark.notifications.DailyNotificationScheduler
 import com.example.kindspark.notifications.NotificationScheduler
 import com.example.kindspark.ui.home.*
-import com.example.kindspark.ui.log.*
 import com.example.kindspark.ui.settings.*
+import com.example.kindspark.ui.history.*
+import com.example.kindspark.ui.icons.HistoryNav
+import com.example.kindspark.ui.icons.CustomList
 import com.example.kindspark.ui.theme.KindSparkAppTheme
 import kotlinx.coroutines.launch
 
@@ -133,11 +135,11 @@ fun KindSparkApp() {
                     HomeScreen(viewModel = viewModel)
                 }
 
-                composable("log") {
-                    val viewModel: LogViewModel = viewModel(
-                        factory = LogViewModelFactory(repository)
+                composable("history") {
+                    val viewModel: PromptHistoryViewModel = viewModel(
+                        factory = PromptHistoryViewModelFactory(repository)
                     )
-                    LogScreen(viewModel = viewModel)
+                    PromptHistoryScreen(viewModel = viewModel)
                 }
 
                 composable("settings") {
@@ -162,6 +164,6 @@ data class BottomNavItem(
 
 val bottomNavItems = listOf(
     BottomNavItem("home", "Home", Icons.Default.Home),
-    BottomNavItem("log", "Log", Icons.Default.List),
+    BottomNavItem("history", "History", Icons.Filled.HistoryNav),
     BottomNavItem("settings", "Settings", Icons.Default.Settings)
 )

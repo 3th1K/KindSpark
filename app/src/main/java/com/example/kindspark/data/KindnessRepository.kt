@@ -81,6 +81,7 @@ class KindnessRepository(private val dao: KindnessPromptDao) {
         dao.updateCompletion(updatedCompletion)
     }
 
+    // History screen methods
     fun getAllCompletions(): Flow<List<KindnessCompletion>> {
         return dao.getAllCompletions()
     }
@@ -89,8 +90,20 @@ class KindnessRepository(private val dao: KindnessPromptDao) {
         return dao.getFavoriteCompletions()
     }
 
+    suspend fun getAllPrompts(): List<KindnessPrompt> {
+        return dao.getAllPrompts()
+    }
+
     suspend fun getPromptById(id: Int): KindnessPrompt? {
         return dao.getPromptById(id)
+    }
+
+    suspend fun updateCompletion(completion: KindnessCompletion) {
+        dao.updateCompletion(completion)
+    }
+
+    suspend fun deleteCompletion(completion: KindnessCompletion) {
+        dao.deleteCompletion(completion)
     }
 
     suspend fun getCurrentStreak(): Int {
