@@ -12,15 +12,6 @@
             </PendingDiffInfo>
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/kindspark/data/KindnessDatabase.kt">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/app/src/main/java/com/example/kindspark/data/KindnessDatabase.kt" />
-              <option name="originalContent" value="package com.example.kindspark.data&#10;&#10;import androidx.room.Database&#10;import androidx.room.Room&#10;import androidx.room.RoomDatabase&#10;import androidx.room.TypeConverters&#10;import android.content.Context&#10;&#10;@Database(&#10;    entities = [KindnessPrompt::class, KindnessCompletion::class, SkippedPrompt::class],&#10;    version = 2,&#10;    exportSchema = false&#10;)&#10;abstract class KindnessDatabase : RoomDatabase() {&#10;&#10;    abstract fun kindnessDao(): KindnessPromptDao&#10;&#10;    companion object {&#10;        @Volatile&#10;        private var INSTANCE: KindnessDatabase? = null&#10;&#10;        fun getDatabase(context: Context): KindnessDatabase {&#10;            return INSTANCE ?: synchronized(this) {&#10;                val instance = Room.databaseBuilder(&#10;                    context.applicationContext,&#10;                    KindnessDatabase::class.java,&#10;                    &quot;kindness_database&quot;&#10;                ).build()&#10;                INSTANCE = instance&#10;                instance&#10;            }&#10;        }&#10;    }&#10;}&#10;" />
-              <option name="updatedContent" value="package com.example.kindspark.data&#13;&#10;&#13;&#10;import androidx.room.Database&#13;&#10;import androidx.room.Room&#13;&#10;import androidx.room.RoomDatabase&#13;&#10;import androidx.room.TypeConverters&#13;&#10;import android.content.Context&#13;&#10;&#13;&#10;@Database(&#13;&#10;    entities = [KindnessPrompt::class, KindnessCompletion::class, SkippedPrompt::class, UserProgress::class, DailyPromptSelection::class],&#13;&#10;    version = 4,&#13;&#10;    exportSchema = false&#13;&#10;)&#13;&#10;abstract class KindnessDatabase : RoomDatabase() {&#13;&#10;&#13;&#10;    abstract fun kindnessDao(): KindnessPromptDao&#13;&#10;&#13;&#10;    companion object {&#13;&#10;        @Volatile&#13;&#10;        private var INSTANCE: KindnessDatabase? = null&#13;&#10;&#13;&#10;        fun getDatabase(context: Context): KindnessDatabase {&#13;&#10;            return INSTANCE ?: synchronized(this) {&#13;&#10;                val instance = Room.databaseBuilder(&#13;&#10;                    context.applicationContext,&#13;&#10;                    KindnessDatabase::class.java,&#13;&#10;                    &quot;kindness_database&quot;&#13;&#10;                ).build()&#13;&#10;                INSTANCE = instance&#13;&#10;                instance&#13;&#10;            }&#13;&#10;        }&#13;&#10;    }&#13;&#10;}" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/example/kindspark/data/KindnessPrompt.kt">
           <value>
             <PendingDiffInfo>

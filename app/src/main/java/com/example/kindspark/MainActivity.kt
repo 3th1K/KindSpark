@@ -30,7 +30,6 @@ import com.example.kindspark.ui.home.*
 import com.example.kindspark.ui.settings.*
 import com.example.kindspark.ui.history.*
 import com.example.kindspark.ui.icons.HistoryNav
-import com.example.kindspark.ui.icons.CustomList
 import com.example.kindspark.ui.theme.KindSparkAppTheme
 import kotlinx.coroutines.launch
 
