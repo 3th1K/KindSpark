@@ -82,6 +82,9 @@ fun KindSparkApp() {
         }
     }
 
+    // Create navigation controller outside of theme scope to prevent recomposition issues
+    val navController = rememberNavController()
+
     // Collect theme preferences from UserPreferencesManager
     val selectedTheme by userPreferencesManager.selectedTheme.collectAsStateWithLifecycle(initialValue = UserPreferencesManager.AppTheme.LIGHT)
     val calmingBackground by userPreferencesManager.calmingBackground.collectAsStateWithLifecycle(initialValue = true)
@@ -92,8 +95,6 @@ fun KindSparkApp() {
         calmingBackground = calmingBackground,
         darkTheme = darkMode
     ) {
-        val navController = rememberNavController()
-
         Scaffold(
             bottomBar = {
                 NavigationBar {

@@ -12,6 +12,7 @@ data class SettingsUiState(
     val notificationInterval: UserPreferencesManager.NotificationInterval = UserPreferencesManager.NotificationInterval.ONCE_DAILY,
     val notificationSound: Boolean = true,
     val selectedTheme: UserPreferencesManager.AppTheme = UserPreferencesManager.AppTheme.LIGHT,
+    val darkMode: Boolean = false,
     val calmingBackground: Boolean = true,
     val lottieAnimations: Boolean = true,
     val isLoading: Boolean = false
@@ -36,6 +37,7 @@ class SettingsViewModel(
                 preferencesManager.notificationInterval,
                 preferencesManager.notificationSound,
                 preferencesManager.selectedTheme,
+                preferencesManager.darkMode,
                 preferencesManager.calmingBackground,
                 preferencesManager.lottieAnimations
             ) { values ->
@@ -43,14 +45,16 @@ class SettingsViewModel(
                 val notificationInterval = values[1] as UserPreferencesManager.NotificationInterval
                 val notificationSound = values[2] as Boolean
                 val selectedTheme = values[3] as UserPreferencesManager.AppTheme
-                val calmingBackground = values[4] as Boolean
-                val lottieAnimations = values[5] as Boolean
+                val darkMode = values[4] as Boolean
+                val calmingBackground = values[5] as Boolean
+                val lottieAnimations = values[6] as Boolean
 
                 SettingsUiState(
                     notificationEnabled = notificationEnabled,
                     notificationInterval = notificationInterval,
                     notificationSound = notificationSound,
                     selectedTheme = selectedTheme,
+                    darkMode = darkMode,
                     calmingBackground = calmingBackground,
                     lottieAnimations = lottieAnimations,
                     isLoading = false
@@ -92,6 +96,12 @@ class SettingsViewModel(
     fun updateSelectedTheme(theme: UserPreferencesManager.AppTheme) {
         viewModelScope.launch {
             preferencesManager.updateSelectedTheme(theme)
+        }
+    }
+
+    fun updateDarkMode(enabled: Boolean) {
+        viewModelScope.launch {
+            preferencesManager.updateDarkMode(enabled)
         }
     }
 

@@ -34,6 +34,11 @@ fun HomeScreen(
     var showNotesDialog by remember { mutableStateOf(false) }
     var showCelebrationBadge by remember { mutableStateOf(false) }
 
+    // Refresh data when screen becomes visible to catch changes made in other screens
+    LaunchedEffect(Unit) {
+        viewModel.refreshPrompt()
+    }
+
     // Trigger celebration badge when completed
     LaunchedEffect(uiState.isCompleted) {
         if (uiState.isCompleted && uiState.currentStreak > 0) {

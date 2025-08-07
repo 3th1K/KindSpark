@@ -313,16 +313,18 @@ private fun CalmingBackground(
                 Brush.verticalGradient(
                     colors = listOf(
                         Color(0xFF1C1B1F),
-                        Color(0xFF2D2C32),
-                        Color(0xFF3E3D44)
+                        Color(0xFF2A2A3E),
+                        Color(0xFF3D3D5C),
+                        Color(0xFF4A4A6A)
                     )
                 )
             } else {
                 Brush.verticalGradient(
                     colors = listOf(
                         Color(0xFFFFFBFE),
-                        Color(0xFFF5F5F5),
-                        Color(0xFFEEEEEE)
+                        Color(0xFFF8F5FF), // Slight lavender tint
+                        Color(0xFFF0EDF7), // More noticeable lavender
+                        Color(0xFFE8E3F3)  // Soft purple-gray
                     )
                 )
             }

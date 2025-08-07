@@ -126,12 +126,13 @@ class HomeViewModel(
             try {
                 val completion = _uiState.value.dailyPrompt?.completion
                 if (completion != null) {
+                    val newFavoriteStatus = !completion.isFavorite
                     repository.toggleFavorite(completion)
 
-                    // Update UI state
+                    // Update UI state with the new favorite status
                     _uiState.value = _uiState.value.copy(
                         dailyPrompt = _uiState.value.dailyPrompt?.copy(
-                            completion = completion.copy(isFavorite = !completion.isFavorite)
+                            completion = completion.copy(isFavorite = newFavoriteStatus)
                         )
                     )
                 }

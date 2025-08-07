@@ -89,6 +89,18 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 ModernSettingItem(
+                    icon = Icons.Default.Settings,
+                    title = "Dark Mode",
+                    subtitle = "Enable dark theme across the app",
+                    trailing = {
+                        ModernSwitch(
+                            checked = uiState.darkMode,
+                            onCheckedChange = { viewModel.updateDarkMode(it) }
+                        )
+                    }
+                )
+
+                ModernSettingItem(
                     icon = Icons.Outlined.CustomLandscape,
                     title = "Calming Backgrounds",
                     subtitle = "Use gentle gradient backgrounds",
