@@ -10,18 +10,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import com.example.kindspark.data.preferences.UserPreferencesManager
 
-// Custom theme colors for different themes
-object KindSparkTheme {
-    
-    // Legacy colors - keeping for backward compatibility
-    val SoftBlue = Color(0xFF87CEEB)
-    val SoftBlueDark = Color(0xFF4682B4)
-    val SoftBlueContainer = Color(0xFFE6F3FF)
-    
-    val SoftGreen = Color(0xFF90EE90)
-    val SoftGreenDark = Color(0xFF32CD6B)
-    val SoftGreenContainer = Color(0xFFE6FFE6)
-}
 
 @Composable
 fun KindSparkAppTheme(

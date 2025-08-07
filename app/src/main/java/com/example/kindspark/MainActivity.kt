@@ -25,7 +25,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.kindspark.data.*
 import com.example.kindspark.data.preferences.UserPreferencesManager
-import com.example.kindspark.notifications.DailyNotificationScheduler
 import com.example.kindspark.notifications.NotificationScheduler
 import com.example.kindspark.ui.home.*
 import com.example.kindspark.ui.settings.*
