@@ -64,4 +64,14 @@ interface KindnessPromptDao {
 
     @Query("UPDATE user_progress SET bestStreak = :bestStreak WHERE id = 1")
     suspend fun updateBestStreak(bestStreak: Int)
+
+    // Daily prompt selection methods
+    @Query("SELECT * FROM daily_prompt_selection WHERE date = :date")
+    suspend fun getDailyPromptSelection(date: String): DailyPromptSelection?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertDailyPromptSelection(selection: DailyPromptSelection)
+
+    @Query("DELETE FROM daily_prompt_selection WHERE date < :cutoffDate")
+    suspend fun deleteOldDailyPromptSelections(cutoffDate: String)
 }

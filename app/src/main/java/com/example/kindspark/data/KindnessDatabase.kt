@@ -7,8 +7,8 @@ import androidx.room.TypeConverters
 import android.content.Context
 
 @Database(
-    entities = [KindnessPrompt::class, KindnessCompletion::class, SkippedPrompt::class, UserProgress::class],
-    version = 3,
+    entities = [KindnessPrompt::class, KindnessCompletion::class, SkippedPrompt::class, UserProgress::class, DailyPromptSelection::class],
+    version = 4,
     exportSchema = false
 )
 abstract class KindnessDatabase : RoomDatabase() {

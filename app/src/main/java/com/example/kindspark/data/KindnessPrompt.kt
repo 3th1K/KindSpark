@@ -30,6 +30,13 @@ data class SkippedPrompt(
     val reason: String = "" // Optional reason for skipping
 )
 
+@Entity(tableName = "daily_prompt_selection")
+data class DailyPromptSelection(
+    @PrimaryKey
+    val date: String, // YYYY-MM-DD format
+    val promptId: Int
+)
+
 data class KindnessPromptWithCompletion(
     val prompt: KindnessPrompt,
     val completion: KindnessCompletion?

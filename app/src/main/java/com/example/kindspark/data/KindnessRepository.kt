@@ -52,6 +52,18 @@ class KindnessRepository(private val dao: KindnessPromptDao) {
             return KindnessPromptWithCompletion(prompt!!, existingCompletion)
         }
 
+        // Check if there's already a daily prompt selection for today
+        val existingSelection = dao.getDailyPromptSelection(dateString)
+
+        if (existingSelection != null) {
+            // Return the previously selected prompt for today
+            val prompt = dao.getPromptById(existingSelection.promptId)
+            if (prompt != null) {
+                return KindnessPromptWithCompletion(prompt, null)
+            }
+            // If prompt doesn't exist anymore, fall through to select a new one
+        }
+
         // Get all prompts and select one randomly
         val allPrompts = dao.getAllPrompts()
         if (allPrompts.isEmpty()) {
@@ -59,9 +71,29 @@ class KindnessRepository(private val dao: KindnessPromptDao) {
             return getDailyPrompt(date)
         }
 
+        // Get prompts that have been skipped today
+        val skippedTodayIds = dao.getSkippedPromptIdsByDate(dateString)
+
+        // Filter out skipped prompts
+        val availablePrompts = allPrompts.filter { it.id !in skippedTodayIds }
+
+        val selectedPrompts = if (availablePrompts.isNotEmpty()) {
+            availablePrompts
+        } else {
+            // If all prompts have been skipped, use all prompts
+            allPrompts
+        }
+
         // Use date as seed for consistent daily prompt
         val seed = date.time
-        val randomPrompt = allPrompts[Random(seed).nextInt(allPrompts.size)]
+        val randomPrompt = selectedPrompts[Random(seed).nextInt(selectedPrompts.size)]
+
+        // Save the daily prompt selection
+        val dailySelection = DailyPromptSelection(
+            date = dateString,
+            promptId = randomPrompt.id
+        )
+        dao.insertDailyPromptSelection(dailySelection)
 
         return KindnessPromptWithCompletion(randomPrompt, null)
     }
@@ -155,15 +187,22 @@ class KindnessRepository(private val dao: KindnessPromptDao) {
         // Filter out skipped prompts
         val availablePrompts = allPrompts.filter { it.id !in skippedTodayIds }
 
-        if (availablePrompts.isEmpty()) {
-            // If all prompts have been skipped, clear today's skips and start over
-            // This prevents users from being stuck with no prompts
-            return getRandomPromptFromAll(allPrompts, date)
+        val selectedPrompt = if (availablePrompts.isEmpty()) {
+            // If all prompts have been skipped, select from all prompts
+            val seed = date.time
+            allPrompts[Random(seed).nextInt(allPrompts.size)]
+        } else {
+            // Use date as seed for consistent selection, but add skip count to vary selection
+            val seed = date.time + skippedTodayIds.size
+            availablePrompts[Random(seed).nextInt(availablePrompts.size)]
         }
 
-        // Use date as seed for consistent selection, but add skip count to vary selection
-        val seed = date.time + skippedTodayIds.size
-        val selectedPrompt = availablePrompts[Random(seed).nextInt(availablePrompts.size)]
+        // Update the daily prompt selection with the new prompt
+        val dailySelection = DailyPromptSelection(
+            date = dateString,
+            promptId = selectedPrompt.id
+        )
+        dao.insertDailyPromptSelection(dailySelection)
 
         return KindnessPromptWithCompletion(selectedPrompt, null)
     }
@@ -179,6 +218,9 @@ class KindnessRepository(private val dao: KindnessPromptDao) {
         calendar.add(Calendar.DAY_OF_MONTH, -daysToKeep)
         val cutoffDateString = dateFormatter.format(calendar.time)
         dao.deleteOldSkippedPrompts(cutoffDateString)
+
+        // Also cleanup old daily prompt selections
+        dao.deleteOldDailyPromptSelections(cutoffDateString)
     }
 
     // UserProgress and Streak Management
