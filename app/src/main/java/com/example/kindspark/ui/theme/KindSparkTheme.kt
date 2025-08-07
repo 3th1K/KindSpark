@@ -53,7 +53,7 @@ fun KindSparkAppTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography(),
+        typography = KindSparkTypography,
         content = {
             if (calmingBackground) {
                 CalmingBackground(selectedTheme, darkTheme) {

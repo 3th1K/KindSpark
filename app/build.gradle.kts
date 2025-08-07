@@ -51,6 +51,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    // Google Fonts for custom typography
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.6.3")
+
     // Room database
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
