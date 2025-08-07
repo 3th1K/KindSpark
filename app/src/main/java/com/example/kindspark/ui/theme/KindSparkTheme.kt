@@ -13,12 +13,11 @@ import com.example.kindspark.data.preferences.UserPreferencesManager
 // Custom theme colors for different themes
 object KindSparkTheme {
     
-    // Soft Blue Theme Colors
+    // Legacy colors - keeping for backward compatibility
     val SoftBlue = Color(0xFF87CEEB)
     val SoftBlueDark = Color(0xFF4682B4)
     val SoftBlueContainer = Color(0xFFE6F3FF)
     
-    // Soft Green Theme Colors
     val SoftGreen = Color(0xFF90EE90)
     val SoftGreenDark = Color(0xFF32CD6B)
     val SoftGreenContainer = Color(0xFFE6FFE6)
@@ -38,11 +37,17 @@ fun KindSparkAppTheme(
         UserPreferencesManager.AppTheme.DARK -> {
             dynamicDarkColorScheme()
         }
-        UserPreferencesManager.AppTheme.SOFT_BLUE -> {
-            createSoftBlueColorScheme(darkTheme)
+        UserPreferencesManager.AppTheme.CALM_OCEAN -> {
+            createCalmOceanColorScheme(darkTheme)
         }
-        UserPreferencesManager.AppTheme.SOFT_GREEN -> {
-            createSoftGreenColorScheme(darkTheme)
+        UserPreferencesManager.AppTheme.WARM_SUNSET -> {
+            createWarmSunsetColorScheme(darkTheme)
+        }
+        UserPreferencesManager.AppTheme.SERENE_FOREST -> {
+            createSereneForestColorScheme(darkTheme)
+        }
+        UserPreferencesManager.AppTheme.MIDNIGHT_CALM -> {
+            createMidnightCalmColorScheme(darkTheme)
         }
     }
 
@@ -97,58 +102,114 @@ private fun dynamicDarkColorScheme(): ColorScheme {
     )
 }
 
-private fun createSoftBlueColorScheme(darkTheme: Boolean): ColorScheme {
+private fun createCalmOceanColorScheme(darkTheme: Boolean): ColorScheme {
     return if (darkTheme) {
         darkColorScheme(
-            primary = KindSparkTheme.SoftBlue,
-            onPrimary = Color.White,
-            primaryContainer = KindSparkTheme.SoftBlueDark,
-            onPrimaryContainer = Color.White,
-            secondary = KindSparkTheme.SoftBlue.copy(alpha = 0.7f),
-            background = Color(0xFF0D1B2A),
-            surface = Color(0xFF1B263B),
-            onBackground = Color(0xFFE6F3FF),
-            onSurface = Color(0xFFE6F3FF)
+            primary = CalmOceanPrimaryDark,
+            onPrimary = CalmOceanAccent,
+            primaryContainer = CalmOceanPrimaryDark,
+            onPrimaryContainer = CalmOceanAccent,
+            secondary = CalmOceanPrimary,
+            background = Color(0xFF00251A),
+            surface = Color(0xFF00332B),
+            onBackground = CalmOceanContainer,
+            onSurface = CalmOceanContainer
         )
     } else {
         lightColorScheme(
-            primary = KindSparkTheme.SoftBlueDark,
-            onPrimary = Color.White,
-            primaryContainer = KindSparkTheme.SoftBlueContainer,
-            onPrimaryContainer = KindSparkTheme.SoftBlueDark,
-            secondary = KindSparkTheme.SoftBlue,
-            background = Color(0xFFF8FCFF),
-            surface = Color.White,
-            onBackground = Color(0xFF0D1B2A),
-            onSurface = Color(0xFF0D1B2A)
+            primary = CalmOceanPrimaryDark,
+            onPrimary = CalmOceanAccent,
+            primaryContainer = CalmOceanPrimary,
+            onPrimaryContainer = CalmOceanPrimaryDark,
+            secondary = CalmOceanPrimary,
+            background = CalmOceanContainer,
+            surface = CalmOceanAccent,
+            onBackground = Color(0xFF00251A),
+            onSurface = Color(0xFF00251A)
         )
     }
 }
 
-private fun createSoftGreenColorScheme(darkTheme: Boolean): ColorScheme {
+private fun createWarmSunsetColorScheme(darkTheme: Boolean): ColorScheme {
     return if (darkTheme) {
         darkColorScheme(
-            primary = KindSparkTheme.SoftGreen,
-            onPrimary = Color.Black,
-            primaryContainer = KindSparkTheme.SoftGreenDark,
-            onPrimaryContainer = Color.White,
-            secondary = KindSparkTheme.SoftGreen.copy(alpha = 0.7f),
-            background = Color(0xFF0A1F0A),
-            surface = Color(0xFF1B2F1B),
-            onBackground = Color(0xFFE6FFE6),
-            onSurface = Color(0xFFE6FFE6)
+            primary = WarmSunsetPrimaryDark,
+            onPrimary = WarmSunsetAccent,
+            primaryContainer = WarmSunsetPrimaryDark,
+            onPrimaryContainer = WarmSunsetAccent,
+            secondary = WarmSunsetAccent,
+            background = Color(0xFF3E2723),
+            surface = Color(0xFF5D4037),
+            onBackground = WarmSunsetContainer,
+            onSurface = WarmSunsetContainer
         )
     } else {
         lightColorScheme(
-            primary = KindSparkTheme.SoftGreenDark,
+            primary = WarmSunsetPrimaryDark,
             onPrimary = Color.White,
-            primaryContainer = KindSparkTheme.SoftGreenContainer,
-            onPrimaryContainer = KindSparkTheme.SoftGreenDark,
-            secondary = KindSparkTheme.SoftGreen,
-            background = Color(0xFFF8FFF8),
+            primaryContainer = WarmSunsetPrimary,
+            onPrimaryContainer = WarmSunsetPrimaryDark,
+            secondary = WarmSunsetAccent,
+            background = WarmSunsetSurface,
             surface = Color.White,
-            onBackground = Color(0xFF0A1F0A),
-            onSurface = Color(0xFF0A1F0A)
+            onBackground = Color(0xFF3E2723),
+            onSurface = Color(0xFF3E2723)
+        )
+    }
+}
+
+private fun createSereneForestColorScheme(darkTheme: Boolean): ColorScheme {
+    return if (darkTheme) {
+        darkColorScheme(
+            primary = SereneForestPrimary,
+            onPrimary = Color.White,
+            primaryContainer = SereneForestPrimaryDark,
+            onPrimaryContainer = Color.White,
+            secondary = SereneForestContainer,
+            background = Color(0xFF1B5E20),
+            surface = Color(0xFF2E7D32),
+            onBackground = SereneForestContainer,
+            onSurface = SereneForestContainer
+        )
+    } else {
+        lightColorScheme(
+            primary = SereneForestPrimaryDark,
+            onPrimary = Color.White,
+            primaryContainer = SereneForestPrimary,
+            onPrimaryContainer = SereneForestPrimaryDark,
+            secondary = SereneForestContainer,
+            background = SereneForestSurface,
+            surface = Color.White,
+            onBackground = Color(0xFF1B5E20),
+            onSurface = Color(0xFF1B5E20)
+        )
+    }
+}
+
+private fun createMidnightCalmColorScheme(darkTheme: Boolean): ColorScheme {
+    return if (darkTheme) {
+        darkColorScheme(
+            primary = MidnightCalmAccent,
+            onPrimary = Color.White,
+            primaryContainer = MidnightCalmPrimary,
+            onPrimaryContainer = Color.White,
+            secondary = MidnightCalmAccent,
+            background = MidnightCalmPrimaryDark,
+            surface = MidnightCalmSurface,
+            onBackground = Color(0xFFD1D1E0),
+            onSurface = Color(0xFFD1D1E0)
+        )
+    } else {
+        lightColorScheme(
+            primary = MidnightCalmPrimary,
+            onPrimary = Color.White,
+            primaryContainer = MidnightCalmAccent,
+            onPrimaryContainer = MidnightCalmPrimary,
+            secondary = MidnightCalmAccent,
+            background = Color(0xFFE8EAF6),
+            surface = Color.White,
+            onBackground = MidnightCalmPrimaryDark,
+            onSurface = MidnightCalmPrimaryDark
         )
     }
 }
@@ -160,40 +221,89 @@ private fun CalmingBackground(
     content: @Composable () -> Unit
 ) {
     val backgroundBrush = when (theme) {
-        UserPreferencesManager.AppTheme.SOFT_BLUE -> {
+        UserPreferencesManager.AppTheme.CALM_OCEAN -> {
             if (darkMode) {
                 Brush.verticalGradient(
                     colors = listOf(
                         Color(0xFF0D1B2A),
                         Color(0xFF1B263B),
-                        Color(0xFF415A77)
+                        CalmOceanPrimaryDark
                     )
                 )
             } else {
+                // Light blue gradient
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFFE6F3FF),
-                        Color(0xFFCCE7FF),
-                        Color(0xFFB3DBFF)
+                        CalmOceanContainer,
+                        CalmOceanSurface,
+                        CalmOceanPrimary.copy(alpha = 0.7f),
+                        CalmOceanPrimary
                     )
                 )
             }
         }
-        UserPreferencesManager.AppTheme.SOFT_GREEN -> {
+        UserPreferencesManager.AppTheme.WARM_SUNSET -> {
             if (darkMode) {
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFF0A1F0A),
-                        Color(0xFF1B2F1B),
-                        Color(0xFF2D4A2D)
+                        Color(0xFF3E2723),
+                        Color(0xFF5D4037),
+                        WarmSunsetPrimaryDark.copy(alpha = 0.6f)
                     )
                 )
             } else {
+                // Pastel gradient
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFFE6FFE6),
-                        Color(0xFFCCFFCC),
-                        Color(0xFFB3FFB3)
+                        WarmSunsetSurface,
+                        WarmSunsetContainer,
+                        WarmSunsetPrimary,
+                        WarmSunsetPrimary.copy(alpha = 0.8f)
+                    )
+                )
+            }
+        }
+        UserPreferencesManager.AppTheme.SERENE_FOREST -> {
+            if (darkMode) {
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFF1B5E20),
+                        SereneForestPrimaryDark,
+                        SereneForestPrimary
+                    )
+                )
+            } else {
+                // Blurred green backdrop
+                Brush.radialGradient(
+                    colors = listOf(
+                        SereneForestSurface,
+                        SereneForestContainer,
+                        SereneForestPrimary.copy(alpha = 0.3f),
+                        SereneForestPrimary.copy(alpha = 0.6f)
+                    ),
+                    radius = 1200f
+                )
+            }
+        }
+        UserPreferencesManager.AppTheme.MIDNIGHT_CALM -> {
+            if (darkMode) {
+                // Starry/smoky gradient
+                Brush.verticalGradient(
+                    colors = listOf(
+                        MidnightCalmPrimaryDark,
+                        MidnightCalmSurface,
+                        MidnightCalmPrimary,
+                        MidnightCalmAccent.copy(alpha = 0.3f)
+                    )
+                )
+            } else {
+                // Lighter version for light mode
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFFE8EAF6),
+                        MidnightCalmAccent.copy(alpha = 0.2f),
+                        MidnightCalmPrimary.copy(alpha = 0.3f),
+                        MidnightCalmPrimary.copy(alpha = 0.5f)
                     )
                 )
             }

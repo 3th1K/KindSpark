@@ -202,7 +202,7 @@ fun ThemePreviewCard(
                                     )
                                 )
                             )
-                    )
+                    ) {}
                 }
                 UserPreferencesManager.AppTheme.DARK -> {
                     Box(
@@ -216,35 +216,63 @@ fun ThemePreviewCard(
                                     )
                                 )
                             )
-                    )
+                    ) {}
                 }
-                UserPreferencesManager.AppTheme.SOFT_BLUE -> {
+                UserPreferencesManager.AppTheme.CALM_OCEAN -> {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(
                                 Brush.verticalGradient(
                                     colors = listOf(
-                                        SoftBlueLight.copy(alpha = 0.2f),
-                                        SoftBlue.copy(alpha = 0.1f)
+                                        CalmOceanContainer,
+                                        CalmOceanPrimary
                                     )
                                 )
                             )
-                    )
+                    ) {}
                 }
-                UserPreferencesManager.AppTheme.SOFT_GREEN -> {
+                UserPreferencesManager.AppTheme.WARM_SUNSET -> {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(
                                 Brush.verticalGradient(
                                     colors = listOf(
-                                        KindnessGreenLight.copy(alpha = 0.2f),
-                                        KindnessGreen.copy(alpha = 0.1f)
+                                        WarmSunsetSurface,
+                                        WarmSunsetPrimary
                                     )
                                 )
                             )
-                    )
+                    ) {}
+                }
+                UserPreferencesManager.AppTheme.SERENE_FOREST -> {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(
+                                Brush.verticalGradient(
+                                    colors = listOf(
+                                        SereneForestSurface,
+                                        SereneForestPrimary
+                                    )
+                                )
+                            )
+                    ) {}
+                }
+                UserPreferencesManager.AppTheme.MIDNIGHT_CALM -> {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(
+                                Brush.verticalGradient(
+                                    colors = listOf(
+                                        Color(0xFFE8EAF6),
+                                        MidnightCalmPrimary
+                                    )
+                                )
+                            )
+                    ) {}
                 }
             }
 

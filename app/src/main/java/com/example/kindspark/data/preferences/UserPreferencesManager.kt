@@ -31,8 +31,10 @@ class UserPreferencesManager(private val context: Context) {
     enum class AppTheme(val displayName: String) {
         LIGHT("Light"),
         DARK("Dark"),
-        SOFT_BLUE("Soft Blue"),
-        SOFT_GREEN("Soft Green")
+        CALM_OCEAN("Calm Ocean"),
+        WARM_SUNSET("Warm Sunset"),
+        SERENE_FOREST("Serene Forest"),
+        MIDNIGHT_CALM("Midnight Calm")
     }
 
     val notificationInterval: Flow<NotificationInterval> = context.dataStore.data.map { preferences ->
