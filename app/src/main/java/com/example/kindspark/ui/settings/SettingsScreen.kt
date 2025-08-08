@@ -174,7 +174,7 @@ fun SettingsScreen(
                 ModernSettingItem(
                     icon = Icons.Default.Info,
                     title = "Version",
-                    subtitle = "2.0.0 - Enhanced with Modern UX"
+                    subtitle = "1.0.0 - Just Getting Started!"
                 )
 
                 ModernSettingItem(
