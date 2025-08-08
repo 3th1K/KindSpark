@@ -39,15 +39,6 @@
             </PendingDiffInfo>
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/kindspark/data/KindnessPrompt.kt">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/app/src/main/java/com/example/kindspark/data/KindnessPrompt.kt" />
-              <option name="originalContent" value="package com.example.kindspark.data&#10;&#10;import androidx.room.Entity&#10;import androidx.room.PrimaryKey&#10;import java.time.LocalDate&#10;&#10;@Entity(tableName = &quot;kindness_prompts&quot;)&#10;data class KindnessPrompt(&#10;    @PrimaryKey val id: Int,&#10;    val text: String,&#10;    val category: String = &quot;general&quot;&#10;)&#10;&#10;@Entity(tableName = &quot;kindness_completions&quot;)&#10;data class KindnessCompletion(&#10;    @PrimaryKey(autoGenerate = true)&#10;    val id: Long = 0,&#10;    val promptId: Int,&#10;    val completedDate: String, // Using String to store LocalDate as YYYY-MM-DD&#10;    val isFavorite: Boolean = false,&#10;    val notes: String = &quot;&quot;&#10;)&#10;&#10;" />
-              <option name="updatedContent" value="package com.example.kindspark.data&#13;&#10;&#13;&#10;import androidx.room.Entity&#13;&#10;import androidx.room.PrimaryKey&#13;&#10;import java.time.LocalDate&#13;&#10;&#13;&#10;@Entity(tableName = &quot;kindness_prompts&quot;)&#13;&#10;data class KindnessPrompt(&#13;&#10;    @PrimaryKey val id: Int,&#13;&#10;    val text: String,&#13;&#10;    val category: String = &quot;general&quot;&#13;&#10;)&#13;&#10;&#13;&#10;@Entity(tableName = &quot;kindness_completions&quot;)&#13;&#10;data class KindnessCompletion(&#13;&#10;    @PrimaryKey(autoGenerate = true)&#13;&#10;    val id: Long = 0,&#13;&#10;    val promptId: Int,&#13;&#10;    val completedDate: String, // Using String to store LocalDate as YYYY-MM-DD&#13;&#10;    val isFavorite: Boolean = false,&#13;&#10;    val notes: String = &quot;&quot;&#13;&#10;)&#13;&#10;&#13;&#10;@Entity(tableName = &quot;skipped_prompts&quot;)&#13;&#10;data class SkippedPrompt(&#13;&#10;    @PrimaryKey(autoGenerate = true)&#13;&#10;    val id: Long = 0,&#13;&#10;    val promptId: Int,&#13;&#10;    val skippedDate: String, // Using String to store LocalDate as YYYY-MM-DD&#13;&#10;    val reason: String = &quot;&quot; // Optional reason for skipping&#13;&#10;)&#13;&#10;&#13;&#10;@Entity(tableName = &quot;daily_prompt_selection&quot;)&#13;&#10;data class DailyPromptSelection(&#13;&#10;    @PrimaryKey&#13;&#10;    val date: String, // YYYY-MM-DD format&#13;&#10;    val promptId: Int&#13;&#10;)&#13;&#10;&#13;&#10;data class KindnessPromptWithCompletion(&#13;&#10;    val prompt: KindnessPrompt,&#13;&#10;    val completion: KindnessCompletion?&#13;&#10;)" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/example/kindspark/data/KindnessPromptDao.kt">
           <value>
             <PendingDiffInfo>
