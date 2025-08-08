@@ -96,7 +96,7 @@ cd kindspark
 ## 🎯 How to Use
 
 ### Getting Started
-1. **First Launch**: The app initializes with 20 diverse kindness prompts
+1. **First Launch**: The app initializes with 1000 diverse kindness prompts
 2. **Daily Prompt**: Each day, receive a new kindness challenge
 3. **Complete Activities**: Mark prompts as completed and add personal notes
 4. **Build Streaks**: Maintain consecutive days of kindness for achievements
@@ -203,16 +203,15 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 ## 🛣️ Roadmap
 
 ### Version 2.0 (Planned)
-- [ ] **Social Features**: Share achievements with friends
-- [ ] **Custom Prompts**: Create personalized kindness activities
-- [ ] **Community Challenges**: Participate in global kindness events
-- [ ] **Advanced Analytics**: Detailed impact tracking and insights
+- [ ] **Share Prompt**: Share daily kindness prompts directly to social media with a tap
+- [ ] **Kindness Feed (Optional)**: An anonymized feed showing "Others completed X today!"
+- [ ] **User-Submitted Prompts**: Allow users to contribute their own kindness prompt ideas
 
 ### Version 2.5 (Future)
-- [ ] **Widget Support**: Home screen widgets for quick access
-- [ ] **Voice Commands**: Accessibility improvements
-- [ ] **Multi-language**: Internationalization support
-- [ ] **Wearable Integration**: Smartwatch companion app
+- [ ] **In-App Donations**: Option to support the app’s mission via small tips
+- [ ] **Unlockable Prompt Packs**: e.g. “Workplace Kindness Pack,” “Kids Kindness Pack”
+- [ ] **Cloud Backup**: Sync streaks and history with Google account
+
 
 ## 📄 License
 
@@ -220,7 +219,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **Community Contributors**: Thank you to all developers who've contributed
+- **Community Contributors**: Thank you to all ~~developers~~AI Agents who've contributed
 - **Inspiration**: Built to promote mental health and community connection
 - **Open Source Libraries**: Grateful for the amazing Android development ecosystem
 
