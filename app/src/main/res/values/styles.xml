@@ -1,5 +1,3 @@
 <resources>
-    <style name="Theme.Splash" parent="Theme.KindSpark">
-        <item name="android:windowBackground">@drawable/splash_logo</item>
-    </style>
+    <!-- Theme.Splash has been moved to themes.xml for better organization -->
 </resources>
