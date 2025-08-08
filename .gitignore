@@ -13,3 +13,14 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Keystore files
+*.keystore
+*.jks
+
+# Gradle properties with sensitive information
+gradle.properties
+
+# APK files (optional - remove if you want to track them)
+*.apk
+*.aab
